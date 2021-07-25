@@ -20,14 +20,14 @@ do
 			dice_singlet[$(($i+1))]=$head_value
 		else
 			tail_value=$(($tail_value+1))
-			dice_singlet[$(($i+1))]=$head_value
+			dice_singlet[$(($i+1))]=$tail_value
 		fi
 		((count++))
 	done
 done
 echo "${dice_singlet[@]}"
 singlet_percent=$(((1/2)*100))
-for(i=0;i<360000;i++)
+for (( i=0;i<360000;i++ ))
 do
 		a=$(((RANDOM%6)+1))
 		b=$(((RANDOM%6)+1))
@@ -41,7 +41,7 @@ do
 done
 echo "${dice_doublet[@]}"
 doublet_percent=$(((1/6)*100))
-for(i=0;i<360000;i++)
+for (( i=0;i<360000;i++ ))
 do
                 a=$(((RANDOM%6)+1))
                 b=$(((RANDOM%6)+1))
