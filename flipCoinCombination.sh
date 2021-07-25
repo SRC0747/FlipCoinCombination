@@ -6,8 +6,10 @@ head_value=0
 tail_value=0
 count=1
 declare -a times
+declare -a times_triplet
 declare -A dice_singlet
 declare -A dice_doublet
+declare -A dice_triplet
 while [ $count -gt 0 ]
 do
 	for (( i=1; i<=5; i++ ))
@@ -39,3 +41,19 @@ do
 done
 echo "${dice_doublet[@]}"
 doublet_percent=$(((1/36)*100))
+for(i=0;i<360000;i++)
+do
+                a=$(((RANDOM%6)+1))
+                b=$(((RANDOM%6)+1))
+		c=$(((RANDOM%6)+1))
+		total=$(($a+$b+$c))
+                times_triplet[$total-2]=$((times_triplet[$total-2]+1))
+done
+
+for (( i=1; i<=11; i++ ))
+do
+        dice_triplet[$(($i+1))]=$(times_triplet[$i])
+done
+echo "${dice_triplet[@]}"
+triplet_percent=$(((1/36)*100))
+
