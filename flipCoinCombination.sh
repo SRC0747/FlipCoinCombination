@@ -26,7 +26,7 @@ do
 	done
 done
 echo "${dice_singlet[@]}"
-singlet_percent=$(((1/6)*100))
+singlet_percent=$(((1/2)*100))
 for(i=0;i<360000;i++)
 do
 		a=$(((RANDOM%6)+1))
@@ -40,7 +40,7 @@ do
 	dice_doublet[$(($i+1))]=$(times[$i])
 done
 echo "${dice_doublet[@]}"
-doublet_percent=$(((1/36)*100))
+doublet_percent=$(((1/6)*100))
 for(i=0;i<360000;i++)
 do
                 a=$(((RANDOM%6)+1))
@@ -49,11 +49,37 @@ do
 		total=$(($a+$b+$c))
                 times_triplet[$total-2]=$((times_triplet[$total-2]+1))
 done
-
 for (( i=1; i<=11; i++ ))
 do
         dice_triplet[$(($i+1))]=$(times_triplet[$i])
 done
 echo "${dice_triplet[@]}"
 triplet_percent=$(((1/36)*100))
+if [ $singlet_percent -gt $doublet_percent ]
+then
+	temp=$singlet_percent
+	lowest=$doublet_percent
+else
+	temp=$doublet_percent
+        lowest=$singlet_percent
+fi
+
+if [ $temp -gt $triplet_percent ]
+then
+	highest=$temp
+	if [ $lowest -gt $triplet_percent ]
+	then
+		temp=$lowest
+		lowest=$triplet_percent
+	else
+		temp=$triplet_percent
+	fi
+else
+	highest=$triplet_percent
+fi
+
+echo "$lowest is on the third position of winning combination."
+echo "$temp is on the second position of winning combination."
+echo "$highest is on the first position of winning combination."
+
 
